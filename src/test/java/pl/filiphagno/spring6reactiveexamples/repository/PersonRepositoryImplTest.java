@@ -35,7 +35,7 @@ class PersonRepositoryImplTest {
 
     @Test
     void testFluxGetAllBlock() {
-        Flux<Person> personMono = repo.getAll();
+        Flux<Person> personMono = repo.findAll();
         Person person = personMono.blockFirst();
         assertNotNull(person);
         System.out.println(person);
@@ -43,13 +43,13 @@ class PersonRepositoryImplTest {
 
     @Test
     void testFluxByIDSubscribe() {
-        Flux<Person> personMono = repo.getAll();
+        Flux<Person> personMono = repo.findAll();
         personMono.subscribe(System.out::println);
     }
 
     @Test
     void testFLuxByMap() {
-        Flux<Person> personFlux = repo.getAll();
+        Flux<Person> personFlux = repo.findAll();
         personFlux
                 .map(Person::getFirstName)
                 .subscribe(System.out::println);
@@ -57,7 +57,7 @@ class PersonRepositoryImplTest {
 
     @Test
     void testFLuxFilter() {
-        Flux<Person> personFlux = repo.getAll();
+        Flux<Person> personFlux = repo.findAll();
         personFlux
                 .filter(person -> person.getFirstName().startsWith("F"))
                 .subscribe(System.out::println);
