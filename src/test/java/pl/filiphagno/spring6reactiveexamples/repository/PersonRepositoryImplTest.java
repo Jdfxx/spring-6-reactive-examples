@@ -7,7 +7,6 @@ import reactor.core.publisher.Mono;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 class PersonRepositoryImplTest {
 
     PersonRepository repo = new PersonRepositoryImpl();
@@ -53,6 +52,14 @@ class PersonRepositoryImplTest {
         Flux<Person> personFlux = repo.getAll();
         personFlux
                 .map(Person::getFirstName)
+                .subscribe(System.out::println);
+    }
+
+    @Test
+    void testFLuxFilter() {
+        Flux<Person> personFlux = repo.getAll();
+        personFlux
+                .filter(person -> person.getFirstName().startsWith("F"))
                 .subscribe(System.out::println);
     }
 }
